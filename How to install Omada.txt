@@ -1,0 +1,19 @@
+sudo apt update
+
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | sudo apt-key add -
+
+echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb buster main" | sudo tee /etc/apt/sources.list.d/adoptopenjdk.list
+echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/3.6 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+
+sudo apt update
+sudo apt remove openjdk-11-*
+sudo apt install adoptopenjdk-8-hotspot mongodb-org
+
+sudo systemctl enable mongod.service
+cd /tmp
+wget http://ftp.fr.debian.org/debian/pool/main/c/commons-daemon/libcommons-daemon-java_1.0.15-10_all.deb
+wget https://static.tp-link.com/upload/software/2022/202208/20220822/Omada_SDN_Controller_v5.5.6_Linux_x64.deb
+dpkg -i libcommons-daemon-java_1.0.15-10_all.deb
+sudo apt-get install jsvc
+dpkg -i Omada_SDN_Controller_v5.5.6_Linux_x64.deb
